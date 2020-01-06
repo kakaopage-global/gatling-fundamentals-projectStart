@@ -30,8 +30,8 @@ class MyFirstTest extends IdnMembershipApiSimulation {
 //    scn.inject(atOnceUsers(10))
     scn.inject(
       nothingFor(5 seconds),
-//      constantUsersPerSec(100) during (10 seconds)
-      rampUsersPerSec(1) to (5) during (300 seconds)
+      constantUsersPerSec(50) during (300 seconds)
+//      rampUsersPerSec(1) to (5) during (300 seconds)
 
     )
   ).protocols(httpConf)
