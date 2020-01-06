@@ -27,13 +27,13 @@ class MyFirstTest extends IdnMembershipApiSimulation {
 
   // 3 Load Scenario
   setUp(
-    scn.inject(atOnceUsers(10))
-//    scn.inject(
-//      nothingFor(5 seconds),
+//    scn.inject(atOnceUsers(10))
+    scn.inject(
+      nothingFor(5 seconds),
 //      constantUsersPerSec(100) during (10 seconds)
-////      rampUsersPerSec(1) to (5) during (20 seconds)
-//
-//    )
+      rampUsersPerSec(1) to (5) during (300 seconds)
+
+    )
   ).protocols(httpConf)
 
 
