@@ -85,7 +85,7 @@ class TicketPurchase extends IdnMembershipApiSimulation {
                 // here some println can be entered to do some debuggin, but it may slow-down the process
                 if (isDebugModeOn) {
                   //println("message: " +  )
-                  println("Else Case Triggered session >>>>>>>> " + session)
+                  println("Else Case Triggered postTicketUse session >>>>>>>> " + session)
                 }
                 session
               }
@@ -95,7 +95,7 @@ class TicketPurchase extends IdnMembershipApiSimulation {
         } {
           exec { session =>
             if (isDebugModeOn) {
-              println("Else Case Triggered session >>>>>>>> " + session)
+              println("Else Case Triggered postTicketPurchase session >>>>>>>> " + session)
             }
             session
           }
