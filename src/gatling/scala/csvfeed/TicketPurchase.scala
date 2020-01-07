@@ -71,13 +71,13 @@ class TicketPurchase extends IdnMembershipApiSimulation {
     repeat(numberOfRepeat) {
       feed(csvFeeder)
         .exec(postGiftGiveEventCash())
-//        .pause(1 second)
+        .pause(10 millisecond)
         .exec(getBalance())
         .exec(postTicketPurchase())
-//        .pause(1 second)
+        .pause(10 millisecond)
         .doIfOrElse( session => session.status == OK ) {
           exec(postTicketUse())
-//            .pause(2 seconds)
+            .pause(1 seconds)
             .doIfOrElse( session => session.status == OK) {
               exec(getViewers())
             } {
