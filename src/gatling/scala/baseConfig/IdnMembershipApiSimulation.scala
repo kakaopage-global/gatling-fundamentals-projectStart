@@ -54,18 +54,19 @@ class IdnMembershipApiSimulation extends Simulation {
 
   val ticketPurchaseBodyProd: CompositeByteArrayBody = StringBody(
     """{
-          "contentId": 18,
-          "ticketMap": {
-              "TPCTT010000000000000000016": 2
-          }
-      }""".stripMargin)
+       |   "contentId": 18,
+       |   "ticketMap": {
+       |       "TPCTT010000000000000000016": 2
+       |   }
+       |}""".stripMargin)
 
-  val ticketPurchaseBodyDev: CompositeByteArrayBody = StringBody("""{
-                                                                   |    "contentId": 4,
-                                                                   |    "ticketMap": {
-                                                                   |        "TPCTT010000000000000000240": 2
-                                                                   |    }
-                                                                   |}""".stripMargin)
+  val ticketPurchaseBodyDev: CompositeByteArrayBody = StringBody(
+  """{
+     |    "contentId": 4,
+     |    "ticketMap": {
+     |        "TPCTT010000000000000000240": 2
+     |    }
+     |}""".stripMargin)
 
   val ticketPurchaseBody = if (loadTestEnv.equals("dev") ) {
     ticketPurchaseBodyDev

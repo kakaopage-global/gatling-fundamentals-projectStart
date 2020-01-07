@@ -96,8 +96,6 @@ class TicketPurchase extends IdnMembershipApiSimulation {
           exec { session =>
             if (isDebugModeOn) {
               println("Else Case Triggered session >>>>>>>> " + session)
-              println("episodeId: " + ticketUseQueryMap("episodeId"))
-              println("ticketPurchaseBody: " + ticketPurchaseBody.bytes.toString())
             }
             session
           }
@@ -105,7 +103,7 @@ class TicketPurchase extends IdnMembershipApiSimulation {
     }
   }
 
-  val scn = scenario("Balance check scenario with feeder")
+  val scn = scenario("Purchase and Use Ticket Scenario check scenario with feeder")
       .exec(execAllSimulations())
 
 
