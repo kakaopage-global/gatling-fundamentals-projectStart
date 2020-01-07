@@ -7,6 +7,10 @@ import io.gatling.http.Predef._
 class IdnMembershipApiSimulation extends Simulation {
 
   def loadTestEnv: String = getProperty("LOAD_TEST_ENV", "dev")
+  def numberOfUsers = getProperty("NUMBER_OF_USERS", "2").toInt
+  def loadDuringSeconds = getProperty("LOAD_DURING_SEC", "10").toInt
+  def isDebugModeOn = getProperty("IS_DEBUG_MODE_ON", "true").toBoolean
+  def numberOfRepeat = getProperty("NUMBER_OF_REPEAT", "1").toInt
 
   private def getProperty(propertyName: String, defaultValue: String) = {
     Option(System.getenv(propertyName))
@@ -75,14 +79,14 @@ class IdnMembershipApiSimulation extends Simulation {
   val ticketUseQueryMapProd = Map(
     "contentId" -> 18,
     "episodeId" -> 456,
-    "sUsingWaitfree" -> false,
+    "isUsingWaitfree" -> false,
     "viewExpired" -> "NONE"
   )
 
   val ticketUseQueryMapDev = Map(
     "contentId" -> 4,
     "episodeId" -> 7,
-    "sUsingWaitfree" -> false,
+    "isUsingWaitfree" -> false,
     "viewExpired" -> "NONE"
   )
 

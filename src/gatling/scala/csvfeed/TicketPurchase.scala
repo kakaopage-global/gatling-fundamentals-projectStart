@@ -68,27 +68,37 @@ class TicketPurchase extends IdnMembershipApiSimulation {
   }
 
   def execAllSimulations() = {
-    repeat(1) {
+    repeat(numberOfRepeat) {
       feed(csvFeeder)
         .exec(postGiftGiveEventCash())
+//        .pause(1 second)
         .exec(getBalance())
         .exec(postTicketPurchase())
+//        .pause(1 second)
         .doIfOrElse( session => session.status == OK ) {
           exec(postTicketUse())
+//            .pause(2 seconds)
             .doIfOrElse( session => session.status == OK) {
               exec(getViewers())
             } {
               exec { session =>
                 // here some println can be entered to do some debuggin, but it may slow-down the process
+                if (isDebugModeOn) {
+                  //println("message: " +  )
+                  println("Else Case Triggered session >>>>>>>> " + session)
+                }
                 session
               }
             }
 
+
         } {
           exec { session =>
-            println("Else Case Triggered session >>>>>>>> " + session)
-            println("episodeId: " + ticketUseQueryMap("episodeId"))
-            println("ticketPurchaseBody: " + ticketPurchaseBody.bytes.toString())
+            if (isDebugModeOn) {
+              println("Else Case Triggered session >>>>>>>> " + session)
+              println("episodeId: " + ticketUseQueryMap("episodeId"))
+              println("ticketPurchaseBody: " + ticketPurchaseBody.bytes.toString())
+            }
             session
           }
         }
@@ -100,8 +110,18 @@ class TicketPurchase extends IdnMembershipApiSimulation {
 
 
   setUp(
-    //scn.inject(atOnceUsers(2))
-    scn.inject(constantUsersPerSec(2) during (10 seconds))
+//    scn.inject(atOnceUsers(2))
+
+    scn.inject(
+//      nothingFor(5 seconds)
+//      ,constantUsersPerSec(numberOfUsers) during (loadDuringSeconds seconds)
+        rampUsers(numberOfUsers).over(5 seconds)
+    )
+
   ).protocols(httpConf)
+//    .throttle(
+//      reachRps(100) in (5 seconds),
+//      holdFor(10 seconds)
+//    )
 
 }
