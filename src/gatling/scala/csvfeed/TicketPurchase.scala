@@ -100,7 +100,9 @@ class TicketPurchase extends IdnMembershipApiSimulation {
             session
           }
         }
+        .pause(pauseAfterEachRepeatMs milliseconds)
     }
+
   }
 
   val scn = scenario("Purchase and Use Ticket Scenario check scenario with feeder")

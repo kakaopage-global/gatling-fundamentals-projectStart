@@ -11,6 +11,7 @@ class IdnMembershipApiSimulation extends Simulation {
   def loadDuringSeconds = getProperty("LOAD_DURING_SEC", "10").toInt
   def isDebugModeOn = getProperty("IS_DEBUG_MODE_ON", "true").toBoolean
   def numberOfRepeat = getProperty("NUMBER_OF_REPEAT", "1").toInt
+  def pauseAfterEachRepeatMs = getProperty("PAUSE_AFTER_EACH_REPEAT_MS", "1").toInt
 
   private def getProperty(propertyName: String, defaultValue: String) = {
     Option(System.getenv(propertyName))
