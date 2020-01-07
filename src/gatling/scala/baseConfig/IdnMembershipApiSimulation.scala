@@ -56,8 +56,7 @@ class IdnMembershipApiSimulation extends Simulation {
     """{
           "contentId": 18,
           "ticketMap": {
-              "TPCTT010000000000000000016": 2,
-              "TPCTT020000000000000000017": 2
+              "TPCTT010000000000000000016": 2
           }
       }""".stripMargin)
 
