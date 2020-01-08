@@ -1,7 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+
+        def rtGradle = Artifactory.newGradleBuild()
+        def buildInfo
+
+        stage('Build Stage') {
             steps {
                 sh 'echo "Hello World"'
                 sh '''
@@ -10,5 +14,12 @@ pipeline {
                 '''
             }
         }
+
+        stage('Gradle Build Stage') {
+            rtGradle.tool = "Gradle-5.1"
+            buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'build'
+
+        }
+
     }
 }
