@@ -1,0 +1,32 @@
+POST /contents/_search?filter_path=hits,-**.*Genre,-**.score,-**.views,-**.likes,-**.max_score,-**._score,-**._index,-**._type,-**._id,-**.sort HTTP
+host: search-idn-dev-thfld644uwmsuxdj7rbbh7gjfi.ap-southeast-1.es.amazonaws.com
+Content-Type: application/json
+
+{
+  "from" : 0,
+  "size" : 10,
+  "query": {
+    "query_string": {
+      "query": "title:(cinta*) OR author:(cinta*) OR mainGenreName:(cinta) OR subGenreName:(cinta) OR categoryName:(cinta) OR tag:(cinta)",
+      "default_operator": "AND"
+    }
+  },
+  "_source":{"exclude":["suggest"]},
+  "sort": [
+    "_score",
+    {
+      "id": "desc"
+    }
+  ],
+  "highlight":{
+    "fields":[
+      {"title":{"type":"fvh"}},
+      {"writer":{"type":"fvh"}},
+      {"mainGenreName":{"type":"plain"}},
+      {"subGenreName":{"type":"plain"}},
+      {"categoryName":{"type":"plain"}},
+      {"tag":{"type":"plain"}}
+    ]
+  }
+}
+###
