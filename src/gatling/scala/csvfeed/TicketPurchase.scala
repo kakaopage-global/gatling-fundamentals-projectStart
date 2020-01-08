@@ -102,11 +102,19 @@ class TicketPurchase extends IdnMembershipApiSimulation {
         }
         .pause(pauseAfterEachRepeatMs milliseconds)
     }
+  }
 
+  def execGetBalanceSimulationOnly() = {
+    repeat(numberOfRepeat) {
+      feed(csvFeeder)
+        .exec(getBalance())
+        .pause(pauseAfterEachRepeatMs milliseconds)
+    }
   }
 
   val scn = scenario("Purchase and Use Ticket Scenario check scenario with feeder")
-      .exec(execAllSimulations())
+      //.exec(execAllSimulations())
+      .exec(execGetBalanceSimulationOnly())
 
 
   setUp(
