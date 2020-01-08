@@ -15,11 +15,12 @@ pipeline {
         }
 
         stage('Gradle Build Stage') {
-
-            if (isUnix()) {
-                sh "./gradlew --no-daemon --refresh-dependencies build"
-            } else {
-                bat "gradlew.bat --init-script init.gradle --no-daemon --refresh-dependencies clean ${snapShotTask} build distZip publish ${skipTest}"
+            steps {
+                if (isUnix()) {
+                    sh "./gradlew --no-daemon --refresh-dependencies build"
+                } else {
+                    bat "gradlew.bat --init-script init.gradle --no-daemon --refresh-dependencies clean ${snapShotTask} build distZip publish ${skipTest}"
+                }
             }
 
         }
