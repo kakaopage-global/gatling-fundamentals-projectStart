@@ -2,8 +2,7 @@ pipeline {
     agent any
     stages {
 
-        def rtGradle = Artifactory.newGradleBuild()
-        def buildInfo
+
 
         stage('Build Stage') {
             steps {
@@ -16,8 +15,12 @@ pipeline {
         }
 
         stage('Gradle Build Stage') {
-            rtGradle.tool = "Gradle-5.1"
-            buildInfo = rtGradle.run buildFile: 'build.gradle', tasks: 'build'
+
+            if (isUnix()) {
+                sh "./gradlew --no-daemon --refresh-dependencies build"
+            } else {
+                bat "gradlew.bat --init-script init.gradle --no-daemon --refresh-dependencies clean ${snapShotTask} build distZip publish ${skipTest}"
+            }
 
         }
 
