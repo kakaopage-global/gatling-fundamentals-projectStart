@@ -31,7 +31,9 @@ class IdnMembershipApiSimulation extends Simulation {
   } else if (loadTestEnv.equals("prod") ) {
     println("----- prod ENVIRONMENT ---")
     http
-      .baseURL("http://IDN-Membership-Production.kgbh39purd.ap-southeast-1.elasticbeanstalk.com/")
+      //TODO: the following url has been turned off on purpose, to mistakenly not to test production environment, if prod must be tested unleash it
+      //.baseURL("http://IDN-Membership-Production.kgbh39purd.ap-southeast-1.elasticbeanstalk.com/")
+      .baseURL("http://idn-membership-dev.kgbh39purd.ap-southeast-1.elasticbeanstalk.com/")
       .header("Accept", "application/json")
       .header("auth", "vYKif5ZR3PEGDsG_mC9ok7yjH6fWLlqnnQNfP0Zywqo=")
       .header("login-status", LOGIN_STATUS)
