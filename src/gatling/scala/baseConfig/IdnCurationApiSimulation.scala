@@ -7,7 +7,7 @@ import io.gatling.http.Predef._
 class IdnCurationApiSimulation extends Simulation {
 
   def loadTestEnv: String = getProperty("LOAD_TEST_ENV", "dev")
-  def numberOfUsers = getProperty("NUMBER_OF_USERS", "100").toInt
+  def numberOfUsers = getProperty("NUMBER_OF_USERS", "300").toInt
   def loadDuringSeconds = getProperty("LOAD_DURING_SEC", "300").toInt
   def isDebugModeOn = getProperty("IS_DEBUG_MODE_ON", "true").toBoolean
   def numberOfRepeat = getProperty("NUMBER_OF_REPEAT", "1").toInt
@@ -24,7 +24,17 @@ class IdnCurationApiSimulation extends Simulation {
   val httpConf = if (loadTestEnv.equals("dev") ) {
     println("----- dev ENVIRONMENT ---")
     http
-      .baseURL("http://idn-curation-dev.ff6bdw8gt3.ap-southeast-1.elasticbeanstalk.com/")
+//      .baseURL("http://idn-curation-dev.ff6bdw8gt3.ap-southeast-1.elasticbeanstalk.com/")
+      .baseURL("http://9e82f3d1-default-curationi-38f8-753581310.ap-southeast-1.elb.amazonaws.com/")
+      .header("Accept", "application/json")
+      .header("auth", "vYKif5ZR3PEGDsG_mC9ok7yjH6fWLlqnnQNfP0Zywqo=")
+      .header("login-status", LOGIN_STATUS)
+  } else if (loadTestEnv.equals("dev-tha-k8s") ) {
+    println("----- dev-tha-k8s ENVIRONMENT ---")
+    http
+      //TODO: the following url has been turned off on purpose, to mistakenly not to test production environment, if prod must be tested unleash it
+      //.baseURL("http://http://idn-curation-dev.ff6bdw8gt3.ap-southeast-1.elasticbeanstalk.com/")
+//      .baseURL("http://a41ae2812debe4bbea656c032563e0e9-86a96d731725db38.elb.ap-southeast-1.amazonaws.com/")
       .header("Accept", "application/json")
       .header("auth", "vYKif5ZR3PEGDsG_mC9ok7yjH6fWLlqnnQNfP0Zywqo=")
       .header("login-status", LOGIN_STATUS)
